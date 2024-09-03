@@ -6,7 +6,7 @@ resource "azurerm_bastion_host" "pardeepbastion" {
   location = each.value.location
   ip_configuration {
     name = each.value.ipconfname
-    subnet_id = data.azurerm_network_interface.nicdatablock[each.key].id
+    subnet_id = data.azurerm_subnet.azurebastionsubnetdata[each.key].id
     public_ip_address_id = data.azurerm_public_ip.datablockpip[each.key].id
   }
 }
