@@ -22,3 +22,20 @@ module "parrdeepvnicmodule" {
   depends_on = [ module.pardeeprgmodule, module.pardeepsubnetmodule ]
 }
 
+module "pardeeppipmodule" {
+  source = "../../module/publicip"
+  pardeeppipmap = var.pardeeppipmapmodule
+  depends_on = [ module.pardeeprgmodule ]
+}
+module "pardeepvmmodule" {
+  source = "../../module/vm"
+  pardeepvm = var.pardeepvmmapmodule
+  depends_on = [module.pardeeprgmodule,module.pardeepvnetmodule,module.parrdeepvnicmodule,module.pardeepsubnetmodule ]
+}
+
+
+module "bastionmodule" {
+  source = "../../module/bastion"
+  pardeepbastionmap = var.bastionmapmodule
+  depends_on = [ module.pardeeprgmodule, module.pardeepsubnetmodule, module.pardeeppipmodule, module.parrdeepvnicmodule ]
+}
